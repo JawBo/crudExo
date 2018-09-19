@@ -18,6 +18,8 @@ class CreateExosTable extends Migration
             $table->timestamps();
             $table->string('titre');
             $table->text('description');
+            $table->string('year1');
+            $table->string('year2');
         });
     }
 
