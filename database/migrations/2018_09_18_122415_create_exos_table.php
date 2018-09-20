@@ -20,6 +20,7 @@ class CreateExosTable extends Migration
             $table->text('description');
             $table->string('year1');
             $table->string('year2');
+            $table->string('image');
         });
     }
 

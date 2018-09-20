@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Exo;
 
+use App\Exo;
+use App\Http\Requests\StoreExos;
 class ExosController extends Controller
 {
     public function index()
@@ -23,18 +24,29 @@ class ExosController extends Controller
     }
     public function update(Request $request, $id){
         $item = Exo::find($id);
-        $item->titre = $request->leTitre;
-        $item->description = $request->laDescription;
+        $item->titre = $request->titre;
+        $item->description = $request->description;
         $item->save();
         return redirect ('/');
     }   
-    public function create(Request $request){
+    public function store(StoreExos $request)
+    {
+        $ext= $request->image->getClientOriginalExtension();
+        $file = date('YmdHis').rand(1,999).".".$ext;
+        $path=$request->file('image')->store('upload');
+        
+        
         $item = new Exo;
-        $item->titre=$request->leTitre;
-        $item->description = $request->laDescription;
+        $item->image = $file;
+        $item->titre=$request->titre;
+        $item->description = $request->description;
         $item->year1 = $request->ann1;
         $item->year2 = $request->ann2;
         $item->save();
-        return redirect ('/');
+        return redirect ('/');       
+    }   
+    public function create(Request $request){
+        
+        
     }  
 }

@@ -8,14 +8,27 @@
         <link rel="stylesheet" href="{{url('css/app.css')}}">
     </head>
     <body>      
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
-        <form action="/create" method="get">
+        <form action="/store" method="post" enctype="multipart/form-data">
         @csrf
             <div class="form-group text-center container">
-                <input class="form-control my-2"  name="leTitre" type="text" placeholder="Titre">
-                <input class="form-control my-2" name="ann1" placeholder="Année de début" type="text">
-                <input class="form-control my-2" name="ann2" placeholder="Année de fin" type="text">
-                <textarea class="form-control my-2" name="laDescription" placeholder="Description" cols="30" rows="5"></textarea>       
+                <input class="form-control my-2"  name="titre" type="text" placeholder="Titre" maxlength="50" value="{{ old('titre')}}">
+                <div>
+                    <input class="form-control my-2" name="ann1" placeholder="Année de début" type="text" maxlength="4" value="{{ old('ann1')}}">
+                    <input class="form-control my-2" name="ann2" placeholder="Année de fin" type="text" maxlength="4" value="{{ old('ann2')}}">
+                </div>
+                <textarea class="form-control my-2" name="description" placeholder="Description" cols="30" rows="5">{{ old('description') }}</textarea>       
+                <input type="file" name="image">
+                <hr>
                 <button type="submit" class="btn btn-primary my-2 ">Add</button>
             </div>
         </form>
@@ -26,7 +39,7 @@
                 @csrf
                 <div class="card" style="width: 19rem;">
                     <h3 class="my-2 mx-3 text-center">{{$item->titre}}</h3>
-                        <img class="card-img-top" src="{{url('images/w3.jpg')}}" alt="Card image">
+                        <img class="card-img-top" src="{{url('storage/upload/$item->image') }}" alt="{{$item->image }}">
                     <div class="card-body">
                         <span>Année de début et de fin :</span> {{$item->year1}} - {{$item->year2}} 
                         <p class="card-text">{{$item->description}}</p>

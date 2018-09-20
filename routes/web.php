@@ -12,7 +12,7 @@
 */
 
 Route::get('/', 'ExosController@index');
-Route::get('/create', 'ExosController@create');
+Route::post('/store', 'ExosController@store');
 Route::post('/delete/{id}', 'ExosController@destroy');
 Route::post('/update/{id}', 'ExosController@update');
 Route::get('/edit/{id}', 'ExosController@edit');
