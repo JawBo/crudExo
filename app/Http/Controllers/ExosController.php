@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Exo;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreExos;
+
 class ExosController extends Controller
 {
     public function index()
@@ -31,13 +33,14 @@ class ExosController extends Controller
     }   
     public function store(StoreExos $request)
     {
-        $ext= $request->image->getClientOriginalExtension();
-        $file = date('YmdHis').rand(1,999).".".$ext;
-        $path=$request->file('image')->store('upload');
+        // $ext= $request->image->getClientOriginalExtension();
         
+        // $file = date('YmdHis').'-'.rand(1,999).".".$ext;
+        // $path = $request->file('image')->storeAs('public', $file);
         
+        $path = $request->file('image')->store('public');
         $item = new Exo;
-        $item->image = $file;
+        $item->image = $path;
         $item->titre=$request->titre;
         $item->description = $request->description;
         $item->year1 = $request->ann1;

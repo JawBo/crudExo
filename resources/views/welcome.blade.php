@@ -27,6 +27,7 @@
                     <input class="form-control my-2" name="ann2" placeholder="Année de fin" type="text" maxlength="4" value="{{ old('ann2')}}">
                 </div>
                 <textarea class="form-control my-2" name="description" placeholder="Description" cols="30" rows="5">{{ old('description') }}</textarea>       
+                
                 <input type="file" name="image">
                 <hr>
                 <button type="submit" class="btn btn-primary my-2 ">Add</button>
@@ -35,11 +36,13 @@
     <section class="row">
     @foreach($contenuExos as $key => $item)
         <div class="col-3">
-            <form action="/delete/{{$item->id}}" method="post">
+            <form action="/delete/{{$item->id}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="card" style="width: 19rem;">
                     <h3 class="my-2 mx-3 text-center">{{$item->titre}}</h3>
-                        <img class="card-img-top" src="{{url('storage/upload/$item->image') }}" alt="{{$item->image }}">
+
+                        <img class="card-img-top" src="{{Storage::url($item->image)}}" alt="{{$item->image}}">
+
                     <div class="card-body">
                         <span>Année de début et de fin :</span> {{$item->year1}} - {{$item->year2}} 
                         <p class="card-text">{{$item->description}}</p>

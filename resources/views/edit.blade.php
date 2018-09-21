@@ -18,17 +18,17 @@
 
     <form action="/update/{{$item->id}}" method="post">
         @csrf
-        <div class="container">
+        <div class="container my-5">
             <div >
-                <input name="leTitre" type="text" value="{{$item->titre}}"  id="">
+                <input name="leTitre" class="form-control my-2" type="text" value="{{$item->titre}}"  id="">
             </div>
 
             <div >
-                <textarea name="laDescription" id="" class="" cols="30" rows="10">{{$item->description}}</textarea>
+                <textarea name="laDescription" id="" class="form-control my-2" cols="30" rows="10">{{$item->description}}</textarea>
             </div>
-
+ 
             <div class="">
-                <button class="btn btn-primary" type="submit">Sauvegarder</button>
+                <button class="btn btn-primary form-control my-2"  type="submit">Sauvegarder</button>
             </div>            
         </div>
     </form>
